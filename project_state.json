@@ -1,0 +1,343 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 15,
+  "summary": "Autohub - A used car marketplace app inspired by Spinny.com and CarDekho. Includes car resale value checker, vehicle details lookup by registration number, and second-hand car listings aggregated/updated from Google.",
+  "architectural_notes": [
+    "App is a used car marketplace (Autohub) inspired by Spinny.com and CarDekho",
+    "Requires integration with external data sources (Google) for second-hand car listings and vehicle registration lookup",
+    "360-degree car view (interior & exterior) required for listings — may use image carousel or third-party 360 viewer widget",
+    "Location filter uses a state → city hierarchy covering all Indian states and their cities",
+    "Seller phone numbers must be hidden/masked in listing views for privacy",
+    "Booking payment uses a real bank account (Axis Bank, A/C: 922010062230782, IFSC: UTIB0004620, Name: KRISHNA KANT PANDEY); customers deposit ₹5,000 and upload a receipt",
+    "Contact Us section includes helpline number +91-7836887228 and owner name Krishna Kant Pandey, India",
+    "Admin dashboard required: view all bookings (with receipt info), callback requests, and purchase inquiries"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-apply-a-visual-theme-inspired-by-spinny-com-and-cardekho-clean-white-light-grey-background-bold-red-orange-accent-color-modern-sans-serif-typography-card-based-vehicle-listings-prominent-search-filter-bar-and-a-responsive-navbar-with-buy-sell-and-tools-sections-enforce-this-theme-consistently-across-all-pages",
+      "title": "Apply a visual theme inspired by Spinny.com and CarDekho: clean white/light-grey background, bold red-orange accent color, modern sans-serif typography, card-based vehicle listings, prominent search/filter bar, and a responsive navbar with Buy, Sell, and Tools sections. Enforce this theme consistently across all pages.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-homepage-with-a-hero-section-featuring-a-prominent-search-bar-by-make-model-or-registration-number-a-featured-recent-second-hand-car-listings-grid-and-quick-access-buttons-to-sell-my-car-check-resale-value-and-vehicle-details-by-registration",
+      "title": "Build a homepage with a hero section featuring a prominent search bar (by make, model, or registration number), a featured/recent second-hand car listings grid, and quick-access buttons to 'Sell My Car', 'Check Resale Value', and 'Vehicle Details by Registration'.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-second-hand-car-listings-page-where-users-can-browse-search-and-filter-available-cars-for-sale-each-listing-card-must-show-car-image-or-placeholder-make-model-year-mileage-km-fuel-type-transmission-asking-price-and-seller-contact-info-include-filters-for-make-price-range-year-fuel-type-and-city",
+      "title": "Implement a second-hand car listings page where users can browse, search, and filter available cars for sale. Each listing card must show: car image (or placeholder), make, model, year, mileage (km), fuel type, transmission, asking price, and seller contact info. Include filters for make, price range, year, fuel type, and city.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-sell-my-car-flow-a-multi-step-form-where-a-customer-fills-in-their-car-details-make-model-year-mileage-fuel-type-transmission-color-city-asking-price-registration-number-description-contact-info-and-submits-the-listing-on-submission-save-the-listing-to-the-backend-and-show-a-confirmation-screen-with-the-listing-id",
+      "title": "Build a 'Sell My Car' flow: a multi-step form where a customer fills in their car details (make, model, year, mileage, fuel type, transmission, color, city, asking price, registration number, description, contact info) and submits the listing. On submission, save the listing to the backend and show a confirmation screen with the listing ID.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-car-resale-value-checker-tool-page-resale-value-the-user-inputs-car-make-model-year-mileage-fuel-type-transmission-and-city-the-frontend-computes-an-estimated-resale-value-using-a-rule-based-depreciation-formula-stored-in-the-frontend-base-price-by-make-model-year-depreciated-by-mileage-and-age-and-displays-a-value-range-e-g-3-5l-4-2l-along-with-a-breakdown-of-factors-affecting-the-price",
+      "title": "Build a 'Car Resale Value Checker' tool page ('/resale-value'). The user inputs: car make, model, year, mileage, fuel type, transmission, and city. The frontend computes an estimated resale value using a rule-based depreciation formula stored in the frontend (base price by make/model/year, depreciated by mileage and age) and displays a value range (e.g., ₹3.5L – ₹4.2L) along with a breakdown of factors affecting the price.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-vehicle-details-by-registration-number-lookup-page-vehicle-lookup-the-user-enters-a-vehicle-registration-number-the-frontend-displays-the-matched-listing-from-the-backend-if-it-exists-in-the-platform-s-database-if-no-match-is-found-in-the-backend-show-a-message-indicating-the-vehicle-was-not-found-and-suggest-the-user-browse-listings-or-list-their-car",
+      "title": "Build a 'Vehicle Details by Registration Number' lookup page ('/vehicle-lookup'). The user enters a vehicle registration number. The frontend displays the matched listing from the backend (if it exists in the platform's database). If no match is found in the backend, show a message indicating the vehicle was not found and suggest the user browse listings or list their car.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-site-wide-header-navbar-with-the-autohub-logo-navigation-links-home-buy-a-car-sell-my-car-check-resale-value-vehicle-lookup-and-a-mobile-responsive-hamburger-menu",
+      "title": "Add a site-wide header/navbar with the Autohub logo, navigation links (Home, Buy a Car, Sell My Car, Check Resale Value, Vehicle Lookup), and a mobile-responsive hamburger menu.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-logo-image-for-autohub-a-bold-stylized-car-icon-with-the-text-autohub-in-a-modern-sans-serif-font-using-red-orange-and-dark-grey-on-a-white-background-suitable-for-use-as-a-navbar-logo",
+      "title": "Generate a logo image for Autohub: a bold stylized car icon with the text 'AutoHub' in a modern sans-serif font, using red-orange and dark grey on a white background, suitable for use as a navbar logo.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-carcard-component-and-the-listingdetail-page-to-display-hd-car-photos-carcard-should-show-the-primary-hd-photo-from-imageurls-0-the-listingdetail-page-should-show-a-scrollable-hd-photo-gallery-using-all-images-in-imageurls-images-must-maintain-aspect-ratio-and-render-crisply-without-pixelation",
+      "title": "Update the CarCard component and the ListingDetail page to display HD car photos. CarCard should show the primary HD photo from `imageUrls[0]`. The ListingDetail page should show a scrollable HD photo gallery using all images in `imageUrls`. Images must maintain aspect ratio and render crisply without pixelation.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-360-degree-interactive-viewer-on-the-listingdetail-page-provide-two-tabs-exterior-360-and-interior-360-each-tab-displays-a-drag-to-rotate-viewer-using-the-images-in-exteriorimages360-or-interiorimages360-respectively-the-viewer-cycles-through-images-as-the-user-drags-left-right-or-touches-on-mobile-creating-the-illusion-of-rotating-around-or-inside-the-car-show-a-visual-hint-e-g-a-rotate-icon-with-drag-to-rotate-text-on-first-load",
+      "title": "Add a 360-degree interactive viewer on the ListingDetail page. Provide two tabs: 'Exterior 360°' and 'Interior 360°'. Each tab displays a drag-to-rotate viewer using the images in `exteriorImages360` or `interiorImages360` respectively. The viewer cycles through images as the user drags left/right (or touches on mobile), creating the illusion of rotating around or inside the car. Show a visual hint (e.g., a rotate icon with 'Drag to rotate' text) on first load.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-pan-india-location-option-to-the-city-filter-on-the-listings-page-when-pan-india-or-all-india-is-selected-as-the-location-listings-from-all-cities-across-india-are-shown-without-any-city-restriction-this-should-be-the-default-selected-state-the-filter-dropdown-must-include-major-indian-cities-already-in-use-plus-a-clearly-labeled-pan-india-all-locations-option-at-the-top-of-the-list",
+      "title": "Add a 'Pan India' location option to the city filter on the Listings page. When 'Pan India' (or 'All India') is selected as the location, listings from all cities across India are shown without any city restriction. This should be the default selected state. The filter dropdown must include major Indian cities already in use plus a clearly labeled 'Pan India – All Locations' option at the top of the list.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-move-the-location-filter-to-the-home-page-and-display-it-prominently-alongside-the-hero-search-bar-e-g-inline-or-directly-below-it-the-filter-must-be-visible-without-scrolling-on-desktop-and-mobile",
+      "title": "Move the location filter to the Home page and display it prominently alongside the hero search bar (e.g., inline or directly below it). The filter must be visible without scrolling on desktop and mobile.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expand-the-location-filter-on-both-the-home-page-and-the-listings-page-to-include-a-two-level-hierarchy-all-indian-states-at-the-top-level-and-all-major-cities-for-each-state-as-sub-options-the-filter-must-show-pan-india-all-locations-as-the-default-first-option-followed-by-states-and-their-cities-example-rajasthan-jaipur-jodhpur-udaipur-maharashtra-mumbai-pune-nagpur-karnataka-bangalore-mysore-hubli-etc-include-all-28-states-and-8-union-territories-with-their-principal-cities",
+      "title": "Expand the location filter (on both the Home page and the Listings page) to include a two-level hierarchy: all Indian states at the top level, and all major cities for each state as sub-options. The filter must show 'Pan India – All Locations' as the default first option, followed by states and their cities. Example: Rajasthan → Jaipur, Jodhpur, Udaipur; Maharashtra → Mumbai, Pune, Nagpur; Karnataka → Bangalore, Mysore, Hubli; etc. Include all 28 states and 8 union territories with their principal cities.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-car-booking-option-on-the-listingdetail-page-a-book-this-car-button-for-listings-with-status-available-allows-a-customer-to-reserve-the-car-by-paying-a-5-000-booking-amount-show-a-booking-confirmation-modal-that-displays-the-booking-amount-5-000-the-car-details-make-model-year-and-a-confirmation-message-record-the-booking-in-the-backend-by-adding-a-bookingstatus-field-e-g-none-booked-and-bookedat-timestamp-to-the-carlisting-data-model-when-a-car-is-booked-display-a-booked-badge-on-the-carcard-and-disable-the-book-this-car-button-on-the-listingdetail-page",
+      "title": "Add a car booking option on the ListingDetail page. A 'Book This Car' button (for listings with status 'available') allows a customer to reserve the car by paying a ₹5,000 booking amount. Show a booking confirmation modal that displays the booking amount (₹5,000), the car details (make, model, year), and a confirmation message. Record the booking in the backend by adding a `bookingStatus` field (e.g., 'none' | 'booked') and `bookedAt` timestamp to the CarListing data model. When a car is booked, display a 'Booked' badge on the CarCard and disable the 'Book This Car' button on the ListingDetail page.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-emi-finance-calculator-section-on-the-listingdetail-page-below-the-car-details-show-a-collapsible-check-emi-finance-options-panel-the-user-can-input-loan-amount-pre-filled-with-the-car-s-asking-price-down-payment-interest-rate-and-loan-tenure-in-months-12-24-36-48-60-the-frontend-calculates-and-displays-the-estimated-monthly-emi-using-the-standard-emi-formula-total-amount-payable-and-total-interest-no-backend-call-is-needed-all-computation-happens-on-the-frontend",
+      "title": "Add an EMI / Finance Calculator section on the ListingDetail page. Below the car details, show a collapsible 'Check EMI / Finance Options' panel. The user can input: loan amount (pre-filled with the car's asking price), down payment, interest rate (%), and loan tenure in months (12, 24, 36, 48, 60). The frontend calculates and displays the estimated monthly EMI using the standard EMI formula, total amount payable, and total interest. No backend call is needed — all computation happens on the frontend.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-hide-the-seller-s-mobile-phone-number-from-public-listing-views-on-the-listingdetail-page-and-in-the-vehiclelookup-result-mask-the-phone-number-e-g-show-only-the-first-4-digits-followed-by-like-9876-remove-phone-number-display-from-the-carcard-component-entirely-do-not-expose-the-full-phone-number-anywhere-in-the-public-facing-ui",
+      "title": "Hide the seller's mobile phone number from public listing views. On the ListingDetail page and in the VehicleLookup result, mask the phone number (e.g., show only the first 4 digits followed by '******', like '9876******'). Remove phone number display from the CarCard component entirely. Do not expose the full phone number anywhere in the public-facing UI.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-finance-options-section-on-the-listingdetail-page-below-the-emi-calculator-with-two-tabs-or-cards-bank-finance-and-nbfc-finance-each-should-list-4-5-representative-lenders-e-g-sbi-hdfc-bank-axis-bank-icici-bank-for-bank-finance-bajaj-finserv-mahindra-finance-shriram-finance-tata-capital-for-nbfc-each-lender-entry-should-display-lender-name-indicative-interest-rate-range-e-g-8-5-11-and-a-apply-enquire-button-non-functional-displays-a-we-will-contact-you-shortly-toast-all-data-is-hardcoded-on-the-frontend-no-backend-call-required",
+      "title": "Add a 'Finance Options' section on the ListingDetail page (below the EMI calculator) with two tabs or cards: 'Bank Finance' and 'NBFC Finance'. Each should list 4–5 representative lenders (e.g., SBI, HDFC Bank, Axis Bank, ICICI Bank for Bank Finance; Bajaj Finserv, Mahindra Finance, Shriram Finance, Tata Capital for NBFC). Each lender entry should display: lender name, indicative interest rate range (e.g., 8.5% – 11%), and a 'Apply / Enquire' button (non-functional, displays a 'We will contact you shortly' toast). All data is hardcoded on the frontend — no backend call required.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-request-callback-section-on-the-listingdetail-page-show-a-collapsible-panel-or-card-with-a-short-form-customer-name-text-phone-number-text-preferred-time-slot-select-morning-9am-12pm-afternoon-12pm-4pm-evening-4pm-8pm-and-a-request-callback-submit-button-on-submission-save-the-callback-request-to-the-backend-new-callbackrequest-data-type-with-fields-id-listingid-customername-phone-preferredtime-requestedat-timestamp-and-show-a-success-confirmation-message-thank-you-our-team-will-call-you-back-within-24-hours",
+      "title": "Add a 'Request Callback' section on the ListingDetail page. Show a collapsible panel or card with a short form: customer name (text), phone number (text), preferred time slot (select: Morning 9am–12pm, Afternoon 12pm–4pm, Evening 4pm–8pm), and a 'Request Callback' submit button. On submission, save the callback request to the backend (new `CallbackRequest` data type with fields: id, listingId, customerName, phone, preferredTime, requestedAt timestamp) and show a success confirmation message: 'Thank you! Our team will call you back within 24 hours.'",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-bookingmodal-component-and-the-booking-flow-on-the-listingdetail-page-to-display-bank-transfer-payment-instructions-after-the-customer-clicks-book-this-car-and-confirms-show-the-following-bank-details-prominently-inside-the-modal-account-number-922010062230782-ifsc-code-utib0004620-account-holder-krishna-kant-pandey-bank-axis-bank-instruct-the-customer-to-transfer-5-000-to-this-account-below-the-bank-details-add-a-upload-payment-receipt-file-input-accepts-image-files-jpg-png-pdf-add-a-submit-booking-with-receipt-button-when-submitted-record-the-booking-in-the-backend-and-include-a-receiptfilename-field-text-the-uploaded-file-s-name-as-a-string-in-the-booking-record-on-the-carlisting-the-booking-status-should-only-be-set-to-booked-after-receipt-is-submitted-show-a-final-confirmation-message-booking-confirmed-your-receipt-has-been-received-our-team-will-verify-and-confirm-within-2-4-hours",
+      "title": "Update the BookingModal component and the booking flow on the ListingDetail page to display bank transfer payment instructions. After the customer clicks 'Book This Car' and confirms, show the following bank details prominently inside the modal: Account Number: 922010062230782, IFSC Code: UTIB0004620, Account Holder: KRISHNA KANT PANDEY, Bank: Axis Bank. Instruct the customer to transfer ₹5,000 to this account. Below the bank details, add a 'Upload Payment Receipt' file input (accepts image files: JPG, PNG, PDF). Add a 'Submit Booking with Receipt' button. When submitted, record the booking in the backend and include a `receiptFileName` field (text, the uploaded file's name as a string) in the booking record on the CarListing. The booking status should only be set to 'booked' after receipt is submitted. Show a final confirmation message: 'Booking confirmed! Your receipt has been received. Our team will verify and confirm within 2–4 hours.'",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-footer-component-frontend-src-components-footer-tsx-to-prominently-display-a-contact-us-section-with-the-following-details-owner-name-krishna-kant-pandey-helpline-number-91-7836887228-country-india-the-helpline-number-must-be-displayed-as-a-clickable-tel-link-the-section-should-be-styled-consistently-with-the-existing-red-orange-and-dark-grey-autohub-theme",
+      "title": "Update the site Footer component (`frontend/src/components/Footer.tsx`) to prominently display a 'Contact Us' section with the following details: Owner Name: Krishna Kant Pandey, Helpline Number: +91-7836887228, Country: India. The helpline number must be displayed as a clickable `tel:` link. The section should be styled consistently with the existing red-orange and dark-grey AutoHub theme.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-admin-dashboard-page-at-route-admin-in-the-frontend-the-page-must-have-three-tabbed-sections-1-callback-requests-displays-a-table-of-all-customer-callback-requests-with-columns-customer-name-phone-number-unmasked-for-admin-listing-id-preferred-time-slot-and-date-time-submitted-2-bookings-payments-displays-a-table-of-all-booked-car-listings-with-columns-car-make-model-year-registration-number-seller-name-booking-status-receipt-file-name-and-booked-at-timestamp-3-all-listings-purchase-inquiries-displays-a-table-of-all-car-listings-with-columns-id-make-model-year-city-asking-price-status-available-sold-booked-and-posted-date-each-table-must-be-sortable-by-date-newest-first-and-include-a-total-count-at-the-top-of-each-tab-style-the-dashboard-consistently-with-the-autohub-red-orange-and-dark-grey-theme",
+      "title": "Create a new Admin Dashboard page at route '/admin' in the frontend. The page must have three tabbed sections: (1) 'Callback Requests' — displays a table of all customer callback requests with columns: customer name, phone number (unmasked for admin), listing ID, preferred time slot, and date/time submitted; (2) 'Bookings & Payments' — displays a table of all booked car listings with columns: car (make, model, year), registration number, seller name, booking status, receipt file name, and booked-at timestamp; (3) 'All Listings / Purchase Inquiries' — displays a table of all car listings with columns: ID, make, model, year, city, asking price, status (available/sold/booked), and posted date. Each table must be sortable by date (newest first) and include a total count at the top of each tab. Style the dashboard consistently with the AutoHub red-orange and dark-grey theme.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-admin-dashboard-link-in-the-site-navbar-desktop-and-mobile-menu-pointing-to-admin-the-link-should-be-labeled-admin-and-placed-at-the-far-right-of-the-desktop-nav-or-at-the-bottom-of-the-mobile-menu-style-it-as-a-subtle-secondary-link-not-the-primary-cta-button-consistent-with-the-existing-navbar-theme",
+      "title": "Add a visible 'Admin Dashboard' link in the site Navbar (desktop and mobile menu) pointing to '/admin'. The link should be labeled 'Admin' and placed at the far right of the desktop nav or at the bottom of the mobile menu. Style it as a subtle secondary link (not the primary CTA button) consistent with the existing navbar theme.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Car resale value checker - customers can input car details and get estimated resale value",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Vehicle details lookup by car registration number",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Second-hand car listings with data aggregated/updated from Google search results for cars being sold by customers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Overall UI/UX inspired by Spinny.com and CarDekho - car marketplace with buy/sell functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement a backend data model for second-hand car listings. Each listing must store: id, make, model, year, mileage, fuelType, transmission, color, city, askingPrice, sellerName, sellerPhone, description, imageUrl, registrationNumber, postedAt timestamp, and status (available/sold). Provide CRUD operations: create listing, get all listings, get listing by id, get listing by registration number, update listing, delete listing.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Pre-populate the backend with at least 12 realistic sample second-hand car listings covering a variety of makes (Maruti, Hyundai, Honda, Tata, Mahindra, Toyota), models, years (2016–2022), fuel types (petrol, diesel, CNG), cities (Delhi, Mumbai, Bangalore, Chennai, Hyderabad), and price ranges. These listings simulate cars that customers are selling and represent aggregated market data.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add more car listings to the pre-populated sample data in the backend",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Expand the pre-populated sample car listings in the backend (backend/main.mo) from the current 12+ entries to at least 25 realistic second-hand car listings. New listings must cover additional variety in: makes (e.g., Kia, Renault, Skoda, Ford, Volkswagen, MG, Nissan), models, years (2015–2023), fuel types (petrol, diesel, CNG, electric), transmissions (manual, automatic), cities (Pune, Kolkata, Ahmedabad, Jaipur, Lucknow), colors, mileage ranges (10,000–120,000 km), and price ranges (₹2.5L–₹20L). Each listing must include all required fields: id, make, model, year, mileage, fuelType, transmission, color, city, askingPrice, sellerName, sellerPhone, description, imageUrl, registrationNumber, postedAt, and status (mix of available and sold).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add HD quality car photos to listings",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add 360-degree view option for car interior and exterior so customers can virtually inspect the car",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add pan India location filter/option for car listings so users can browse cars listed across all of India",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Update the backend CarListing data model to include an `imageUrls` field (array of strings for multiple HD photo URLs) and an `exteriorImages360` and `interiorImages360` field (arrays of strings for 360-degree view image URLs). Migrate existing listings to use the new fields, populating `imageUrls` with high-quality Unsplash/placeholder car photo URLs for each listing, and populating `exteriorImages360` and `interiorImages360` with arrays of sequential angle images (at least 8 per listing) simulating a 360-degree view.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Move location filter to homepage, prominently displayed; expand location options to include all Indian state names and city names for every state (state + city hierarchy in filter)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add car booking option with a ₹5,000 booking amount that customers can pay to reserve a car",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add EMI calculator / finance option so customers can check monthly EMI for a car they want to buy",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Hide seller/owner mobile number from public listing view (mask or hide phone number for privacy)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add Bank Finance and NBFC financing options on the ListingDetail page so customers can explore different loan/finance providers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Add a 'Request Callback' option so customers can submit their contact details and request a callback from the Autohub team",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Update the booking flow to show bank account details for payment (Account No: 922010062230782, IFSC: UTIB0004620, Name: KRISHNA KANT PANDEY, Axis Bank). Customer can deposit ₹5,000 booking amount and upload/submit a payment receipt as proof of booking.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Add a 'Contact Us' section with helpline number and company owner details: Krishna Kant Pandey, +91-7836887228, India.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Add an admin/owner dashboard where the admin can view all customer queries (callback requests), all booking records (including payment receipt details), and all car purchase inquiries in one place.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Add a backend query to retrieve all CallbackRequest records. Add a backend query to retrieve all CarListing records that have bookingStatus set to 'booked' (i.e., all booking records with receipt details). Ensure the existing getAllListings and getCallbackRequests functions (or equivalent) are accessible for the admin dashboard. No new data models are needed — use existing CarListing and CallbackRequest types.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Autohub",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

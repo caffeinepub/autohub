@@ -1,0 +1,84 @@
+{
+  "kind": "build_request",
+  "title": "Admin Dashboard for Queries, Bookings, and Purchase Inquiries",
+  "projectName": "AutoHub",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-25",
+      "text": "Add a backend query to retrieve all CallbackRequest records. Add a backend query to retrieve all CarListing records that have bookingStatus set to 'booked' (i.e., all booking records with receipt details). Ensure the existing getAllListings and getCallbackRequests functions (or equivalent) are accessible for the admin dashboard. No new data models are needed — use existing CarListing and CallbackRequest types.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "details dashboard where i can get all details if any customer paid payment and if any customer want purchase car"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes a query to return all CallbackRequest records.",
+        "Backend exposes a query to return all CarListing records filtered by bookingStatus = 'booked'.",
+        "All existing fields (receiptFileName, bookedAt, customerName, phone, preferredTime, listingId, etc.) are returned."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Create a new Admin Dashboard page at route '/admin' in the frontend. The page must have three tabbed sections: (1) 'Callback Requests' — displays a table of all customer callback requests with columns: customer name, phone number (unmasked for admin), listing ID, preferred time slot, and date/time submitted; (2) 'Bookings & Payments' — displays a table of all booked car listings with columns: car (make, model, year), registration number, seller name, booking status, receipt file name, and booked-at timestamp; (3) 'All Listings / Purchase Inquiries' — displays a table of all car listings with columns: ID, make, model, year, city, asking price, status (available/sold/booked), and posted date. Each table must be sortable by date (newest first) and include a total count at the top of each tab. Style the dashboard consistently with the AutoHub red-orange and dark-grey theme.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "details dashboard where i can get all details if any customer paid payment and if any cystomer want purchase car"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Navigating to '/admin' renders the Admin Dashboard page.",
+        "The 'Callback Requests' tab shows all CallbackRequest entries with customer name, phone (full, unmasked), listing ID, preferred time, and requestedAt.",
+        "The 'Bookings & Payments' tab shows all CarListing entries with bookingStatus='booked', displaying make, model, year, registrationNumber, sellerName, receiptFileName, and bookedAt.",
+        "The 'All Listings / Purchase Inquiries' tab shows all car listings with their current status.",
+        "Each tab displays a count of total records.",
+        "Records are sorted newest first by default.",
+        "Dashboard is styled with the AutoHub red-orange and dark-grey theme."
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "text": "Add a visible 'Admin Dashboard' link in the site Navbar (desktop and mobile menu) pointing to '/admin'. The link should be labeled 'Admin' and placed at the far right of the desktop nav or at the bottom of the mobile menu. Style it as a subtle secondary link (not the primary CTA button) consistent with the existing navbar theme.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "please live this application how to handle every quries"
+        ]
+      },
+      "acceptanceCriteria": [
+        "An 'Admin' navigation link appears in the desktop navbar.",
+        "The 'Admin' link appears in the mobile hamburger menu.",
+        "Clicking the link navigates to '/admin'.",
+        "The link styling is consistent with other secondary nav items."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not change the existing CarListing or CallbackRequest data models in the backend.",
+    "The admin dashboard phone numbers must be displayed unmasked (full number) — the masking utility applies only to public-facing pages.",
+    "Do not add authentication or login protection to the admin dashboard in this iteration.",
+    "Do not edit files listed in frontend.immutablePaths."
+  ],
+  "nonGoals": [
+    "Admin authentication or password protection.",
+    "Ability to edit, delete, or update listings/bookings from the admin dashboard.",
+    "Email or SMS notifications to admin on new bookings or callback requests.",
+    "Export to CSV or PDF.",
+    "Real-time auto-refresh of dashboard data."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

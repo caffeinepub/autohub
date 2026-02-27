@@ -1,0 +1,54 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Admin Dashboard for Queries, Bookings, and Purchase Inquiries",
+  "requirements": [
+    {
+      "id": "REQ-26",
+      "summary": "Create an Admin Dashboard page at '/admin' with three tabbed sections displaying Callback Requests, Bookings & Payments, and All Listings with sorting and count totals",
+      "acceptanceCriteria": [
+        "Navigating to '/admin' renders the Admin Dashboard page.",
+        "The 'Callback Requests' tab shows all CallbackRequest entries with customer name, phone (full, unmasked), listing ID, preferred time, and requestedAt.",
+        "The 'Bookings & Payments' tab shows all CarListing entries with bookingStatus='booked', displaying make, model, year, registrationNumber, sellerName, receiptFileName, and bookedAt.",
+        "The 'All Listings / Purchase Inquiries' tab shows all car listings with their current status.",
+        "Each tab displays a count of total records.",
+        "Records are sorted newest first by default.",
+        "Dashboard is styled with the AutoHub red-orange and dark-grey theme."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AdminDashboard.tsx",
+          "operation": "create",
+          "description": "Create the Admin Dashboard page component with three tabs using shadcn/ui Tabs component. The 'Callback Requests' tab fetches data via useGetAllCallbackRequests and displays customer name, full unmasked phone number, listing ID, preferred time slot, and requestedAt timestamp in a sortable table. The 'Bookings & Payments' tab fetches data via useGetAllBookingRecords and displays car make, model, year, registration number, seller name, receipt file name, and bookedAt timestamp. The 'All Listings / Purchase Inquiries' tab fetches data via useGetAllListings and displays listing ID, make, model, year, city, asking price, status, and postedAt. Each tab shows a total count badge and sorts records by date (newest first). Style using Tailwind with the existing AutoHub red-orange (hsl(var(--primary))) and dark-grey theme tokens."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add two new React Query hooks: useGetAllCallbackRequests() that calls backend.getAllCallbackRequests() and returns all CallbackRequest records, and useGetAllBookingRecords() that calls backend.getAllBookingRecords() and returns all CarListing records with bookingStatus='booked'. Both hooks should use queryKey arrays matching the existing pattern and enable automatic refetching on window focus."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the new '/admin' route in the TanStack Router configuration by importing AdminDashboard and adding a route object with path '/admin' and component AdminDashboard to the routes array, ensuring it uses the same Layout wrapper as other pages."
+        }
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "summary": "Add a visible 'Admin Dashboard' link in the Navbar pointing to '/admin' styled as a secondary navigation item",
+      "acceptanceCriteria": [
+        "An 'Admin' navigation link appears in the desktop navbar.",
+        "The 'Admin' link appears in the mobile hamburger menu.",
+        "Clicking the link navigates to '/admin'.",
+        "The link styling is consistent with other secondary nav items."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navbar.tsx",
+          "operation": "modify",
+          "description": "Add an 'Admin' navigation link to both desktop and mobile menu layouts. In the desktop nav, place the link at the far right of the nav items array (before the 'List Your Car' CTA button) using a Link component to='/admin' with label 'Admin'. In the mobile Sheet menu, add the same link at the bottom of the navigation items list. Style the link to match existing secondary nav items (text-foreground/80 with hover:text-foreground transitions) and highlight it when pathname === '/admin' using the same active state pattern as other nav links."
+        }
+      ]
+    }
+  ]
+}
