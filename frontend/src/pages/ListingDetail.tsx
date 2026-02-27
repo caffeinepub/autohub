@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import {
-  ArrowLeft, Phone, MapPin, Calendar, Gauge, Fuel, Settings,
+  ArrowLeft, MapPin, Calendar, Gauge, Fuel, Settings,
   Palette, Hash, Clock, CheckCircle, XCircle, ChevronLeft, ChevronRight,
   Images, RotateCcw, BookOpen, EyeOff
 } from 'lucide-react';
@@ -35,6 +35,10 @@ function timeAgo(timestamp: bigint): string {
   return `${months} month${months > 1 ? 's' : ''} ago`;
 }
 
+function isHttpUrl(url: string): boolean {
+  return url.startsWith('http://') || url.startsWith('https://');
+}
+
 const CAR_PLACEHOLDER_COLORS = [
   'from-slate-200 to-slate-300',
   'from-blue-100 to-blue-200',
@@ -46,8 +50,8 @@ const CAR_PLACEHOLDER_COLORS = [
 export default function ListingDetail() {
   const { id } = useParams({ from: '/listings/$id' });
   const navigate = useNavigate();
-  const listingId = BigInt(id);
-  const { data: listing, isLoading, error } = useGetListingById(listingId);
+  // Pass `id` (string) directly — useGetListingById accepts string | undefined
+  const { data: listing, isLoading, error } = useGetListingById(id);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
@@ -63,7 +67,9 @@ export default function ListingDetail() {
           <div className="space-y-3">
             <Skeleton className="h-80 rounded-2xl" />
             <div className="flex gap-2">
-              {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-16 w-16 rounded-lg flex-shrink-0" />)}
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 w-16 rounded-lg shrink-0" />
+              ))}
             </div>
           </div>
           <div className="space-y-4">
@@ -71,7 +77,9 @@ export default function ListingDetail() {
             <Skeleton className="h-6 w-1/2" />
             <Skeleton className="h-10 w-1/3" />
             <div className="grid grid-cols-2 gap-3">
-              {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-lg" />)}
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-16 rounded-lg" />
+              ))}
             </div>
           </div>
         </div>
@@ -94,7 +102,8 @@ export default function ListingDetail() {
 
   const imageUrls: string[] = listing.imageUrls && listing.imageUrls.length > 0 ? listing.imageUrls : [];
   const primaryImage = imageUrls.length > 0 ? imageUrls[activeImageIndex] : null;
-  const isValidImage = primaryImage && !primaryImage.includes('example.com');
+  // Only treat real HTTP URLs as valid images; local paths like /images/... don't exist
+  const isValidImage = primaryImage !== null && isHttpUrl(primaryImage);
   const colorClass = CAR_PLACEHOLDER_COLORS[Number(listing.id) % CAR_PLACEHOLDER_COLORS.length];
 
   const has360Exterior = listing.exteriorImages360 && listing.exteriorImages360.length > 0;
@@ -148,20 +157,28 @@ export default function ListingDetail() {
             <div className={`relative h-72 lg:h-96 bg-gradient-to-br ${colorClass} rounded-2xl overflow-hidden mb-3`}>
               {isValidImage ? (
                 <img
-                  src={`${primaryImage}&w=900&q=90&fit=crop`}
+                  src={primaryImage!}
                   alt={`${listing.make} ${listing.model} - Photo ${activeImageIndex + 1}`}
                   className="w-full h-full object-cover"
                   loading="eager"
                   width={900}
                   height={384}
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.style.display = 'none';
+                    const placeholder = img.nextElementSibling as HTMLElement;
+                    if (placeholder) placeholder.style.display = 'flex';
+                  }}
                 />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-                  <div className="text-7xl">🚗</div>
-                  <span className="text-sm font-medium opacity-60">{listing.make} {listing.model}</span>
-                </div>
-              )}
+              ) : null}
+              {/* Placeholder */}
+              <div
+                className="w-full h-full flex flex-col items-center justify-center gap-3"
+                style={{ display: isValidImage ? 'none' : 'flex' }}
+              >
+                <div className="text-7xl">🚗</div>
+                <span className="text-sm font-medium opacity-60">{listing.make} {listing.model}</span>
+              </div>
 
               {/* Sold overlay */}
               {listing.status === 'sold' && (
@@ -217,29 +234,33 @@ export default function ListingDetail() {
 
             {/* Thumbnail strip */}
             {imageUrls.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
+              <div className="flex gap-2 overflow-x-auto pb-1">
                 {imageUrls.map((url, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`flex-shrink-0 w-16 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                    className={`shrink-0 w-16 h-14 rounded-lg overflow-hidden border-2 transition-all ${
                       idx === activeImageIndex
                         ? 'border-primary shadow-md scale-105'
                         : 'border-border hover:border-primary/50 opacity-70 hover:opacity-100'
                     }`}
                     aria-label={`View photo ${idx + 1}`}
                   >
-                    <img
-                      src={`${url}&w=120&q=70&fit=crop`}
-                      alt={`Thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement;
-                        img.parentElement!.style.background = 'var(--secondary)';
-                        img.style.display = 'none';
-                      }}
-                    />
+                    {isHttpUrl(url) ? (
+                      <img
+                        src={url}
+                        alt={`Thumbnail ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          if (img.parentElement) img.parentElement.style.background = 'var(--secondary)';
+                          img.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-muted flex items-center justify-center text-xs">🚗</div>
+                    )}
                   </button>
                 ))}
               </div>
@@ -258,7 +279,13 @@ export default function ListingDetail() {
               <div className="flex flex-col items-end gap-1">
                 <Badge
                   variant={isAvailable && !isBooked ? 'default' : 'destructive'}
-                  className={isAvailable && !isBooked ? 'bg-green-100 text-green-700 border-green-200' : isBooked ? 'bg-amber-100 text-amber-700 border-amber-200' : ''}
+                  className={
+                    isAvailable && !isBooked
+                      ? 'bg-green-100 text-green-700 border-green-200'
+                      : isBooked
+                      ? 'bg-amber-100 text-amber-700 border-amber-200'
+                      : ''
+                  }
                 >
                   {isBooked ? (
                     <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> Booked</span>
@@ -290,7 +317,7 @@ export default function ListingDetail() {
 
             {isBooked && (
               <div className="w-full mb-4 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-center gap-2 text-amber-700 text-sm font-medium">
-                <BookOpen className="w-4 h-4 flex-shrink-0" />
+                <BookOpen className="w-4 h-4 shrink-0" />
                 This car has been booked. Contact seller for availability.
               </div>
             )}
@@ -299,7 +326,7 @@ export default function ListingDetail() {
             <div className="grid grid-cols-2 gap-2 mb-5">
               {specs.map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-2 bg-secondary/50 rounded-lg p-2.5">
-                  <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+                  <Icon className="w-4 h-4 text-primary shrink-0" />
                   <div>
                     <p className="text-xs text-muted-foreground">{label}</p>
                     <p className="text-sm font-medium">{value}</p>

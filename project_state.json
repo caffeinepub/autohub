@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 17,
   "summary": "Autohub - A used car marketplace app inspired by Spinny.com and CarDekho. Includes car resale value checker, vehicle details lookup by registration number, and second-hand car listings aggregated/updated from Google.",
   "architectural_notes": [
     "App is a used car marketplace (Autohub) inspired by Spinny.com and CarDekho",
@@ -12,8 +12,10 @@
     "Contact Us section includes helpline number +91-7836887228 and owner name Krishna Kant Pandey, India",
     "Admin dashboard required: view all bookings (with receipt info), callback requests, and purchase inquiries"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Cars not showing in the listings/app (reported by user in Version 7)"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-apply-a-visual-theme-inspired-by-spinny-com-and-cardekho-clean-white-light-grey-background-bold-red-orange-accent-color-modern-sans-serif-typography-card-based-vehicle-listings-prominent-search-filter-bar-and-a-responsive-navbar-with-buy-sell-and-tools-sections-enforce-this-theme-consistently-across-all-pages",
@@ -188,6 +190,14 @@
       "title": "Add a visible 'Admin Dashboard' link in the site Navbar (desktop and mobile menu) pointing to '/admin'. The link should be labeled 'Admin' and placed at the far right of the desktop nav or at the bottom of the mobile menu. Style it as a subtle secondary link (not the primary CTA button) consistent with the existing navbar theme.",
       "reqIds": [
         "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-diagnose-and-fix-the-issue-causing-car-listings-not-to-appear-on-the-home-page-featured-listings-grid-and-the-listings-browse-page-investigate-the-backend-getalllistings-query-to-ensure-it-correctly-returns-all-stored-car-listings-verify-the-frontend-usequeries-ts-hooks-are-fetching-and-passing-data-correctly-and-confirm-the-carcard-and-listings-grid-components-are-rendering-when-data-is-returned-ensure-the-pre-populated-sample-listings-are-present-and-visible-after-the-fix",
+      "title": "Diagnose and fix the issue causing car listings not to appear on the Home page (featured listings grid) and the Listings browse page. Investigate the backend `getAllListings` query to ensure it correctly returns all stored car listings, verify the frontend `useQueries.ts` hooks are fetching and passing data correctly, and confirm the CarCard and listings grid components are rendering when data is returned. Ensure the pre-populated sample listings are present and visible after the fix.",
+      "reqIds": [
+        "REQ-28"
       ],
       "version": 1
     }

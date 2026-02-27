@@ -1,18 +1,45 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T06:52:39.409Z",
-  "summary": "The diff implements all three requirements. REQ-25 is addressed via new backend queries (getAllCallbackRequests and getAllBookingRecords visible in useQueries.ts and referenced in AdminDashboard.tsx). REQ-26 is addressed by the new AdminDashboard.tsx page with three tabbed sections, sorting, counts, and themed styling, registered at '/admin' in App.tsx. REQ-27 is addressed by Admin link additions in Navbar.tsx for both desktop and mobile menus. All acceptance criteria appear to be met based on the available diff evidence.",
+  "generatedAt": "2026-02-27T07:05:33.797Z",
+  "summary": "The diff addresses REQ-28 by fixing car listings not appearing on the Home page and Listings browse page. Changes include: backend migration module added, sample listings embedded directly in main.mo, frontend useQueries.ts hooks updated to fetch and return listings correctly (including fallback logic for getListingById), CarCard.tsx updated to render listing details with placeholder handling, Home.tsx and Listings.tsx updated to use useGetAllListings and render CarCard components, and ListingDetail.tsx fixed for correct id passing. The fix covers backend getAllListings returning sample data, frontend fetching and rendering, and individual card display of car details.",
   "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.88,
+  "hallucinated_features": [
+    {
+      "description": "Migration module (backend/migration.mo) added as a separate file with a run() identity function for stable memory migration",
+      "reason": "REQ-28 only asked to fix listings not showing; adding a migration module was not requested and goes beyond diagnosing/fixing the listing display issue",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "useCreateCallbackRequest exported as an alias for useAddCallbackRequest for backward compatibility",
+      "reason": "This alias export was not mentioned in REQ-28 or any other requirement in the build request",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "BigInt-in-query-key lint error fix in useFilterListings by serializing bigint filter values to strings in the query key",
+      "reason": "REQ-28 focused on getAllListings and rendering; fixing a lint error in useFilterListings was not part of the requirements",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.82,
   "changed_files": [
     "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/Navbar.tsx",
+    "frontend/src/components/CarCard.tsx",
     "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/AdminDashboard.tsx",
+    "frontend/src/pages/Home.tsx",
+    "frontend/src/pages/ListingDetail.tsx",
+    "frontend/src/pages/Listings.tsx",
     "project_state.json"
   ]
 }
