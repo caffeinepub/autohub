@@ -1,31 +1,21 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T07:05:33.801Z",
+  "generatedAt": "2026-03-01T17:07:38.915Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 1,
-    "implemented": 1,
+    "implemented": 0,
     "items": [
       {
-        "id": "REQ-28",
-        "summary": "Diagnose and fix the issue causing car listings not to appear on the Home page (featured listings grid) and the Listings browse page. Investigate the backend `getAllListings` query to ensure it correctly returns all stored car listings, verify the frontend `useQueries.ts` hooks are fetching and passing data correctly, and confirm the CarCard and listings grid components are rendering when data is returned. Ensure the pre-populated sample listings are present and visible after the fix.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/Home.tsx",
-          "frontend/src/pages/Listings.tsx",
-          "frontend/src/components/CarCard.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/Home.tsx",
-          "frontend/src/pages/Listings.tsx",
-          "frontend/src/components/CarCard.tsx"
-        ]
+        "id": "REQ-42",
+        "summary": "Expand the pre-populated sample car listings in `backend/main.mo` to at least 50 realistic second-hand car listings inspired by the types of cars listed on CarDekho, CarWale, and Spinny. Listings must cover a wide variety of: makes (Maruti Suzuki, Hyundai, Tata, Kia, Honda, Toyota, Mahindra, Renault, Skoda, Volkswagen, MG, Ford, Nissan, Jeep), models (Swift, Dzire, Baleno, Brezza, WagonR, Ertiga, Creta, i20, i10, Verna, Venue, Nexon, Punch, Harrier, Altroz, Seltos, Sonet, Carnival, City, Amaze, Fortuner, Innova Crysta, Urban Cruiser, Scorpio, XUV700, XUV300, Bolero, Kwid, Duster, Rapid, Octavia, Polo, Hector, Kicks, Compass), years (2015–2023), fuel types (Petrol, Diesel, CNG, Electric), transmissions (Manual, Automatic), colors, mileage ranges (5,000–150,000 km), asking prices (₹2.0L–₹22L), cities across India (Delhi, Mumbai, Bangalore, Chennai, Hyderabad, Pune, Kolkata, Ahmedabad, Jaipur, Lucknow, Chandigarh, Surat, Bhopal, Nagpur, Kochi). Each listing must include all required fields: id, make, model, year, mileage, fuelType, transmission, color, city, askingPrice, sellerName, sellerPhone, description, registrationNumber, postedAt, status (mix of 'available' and 'sold'), bookingStatus ('none'), imageUrls (array with at least one high-quality car photo URL from Unsplash or similar), exteriorImages360 (array of at least 8 sequential angle image URLs), and interiorImages360 (array of at least 8 sequential angle image URLs).",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       }
     ]
   },
@@ -34,13 +24,11 @@
     "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
-    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/CarCard.tsx",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/Home.tsx",
-    "frontend/src/pages/ListingDetail.tsx",
-    "frontend/src/pages/Listings.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

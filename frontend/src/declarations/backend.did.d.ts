@@ -18,6 +18,14 @@ export interface CallbackRequest {
   'phone' : string,
   'requestedAt' : bigint,
 }
+export interface CarInquiry {
+  'id' : string,
+  'customerName' : string,
+  'customerPhone' : string,
+  'listingId' : string,
+  'submittedAt' : bigint,
+  'message' : string,
+}
 export interface CarListing {
   'id' : bigint,
   'status' : string,
@@ -80,14 +88,17 @@ export interface _SERVICE {
   >,
   'getAllBookingRecords' : ActorMethod<[], Array<CarListing>>,
   'getAllCallbackRequests' : ActorMethod<[], Array<CallbackRequest>>,
+  'getAllInquiries' : ActorMethod<[], Array<CarInquiry>>,
   'getAllListings' : ActorMethod<[], Array<CarListing>>,
   'getBankDetails' : ActorMethod<[], string>,
   'getCallbackRequestsByListingId' : ActorMethod<
     [bigint],
     Array<CallbackRequest>
   >,
+  'getInquiriesByListing' : ActorMethod<[string], Array<CarInquiry>>,
   'getListingById' : ActorMethod<[bigint], CarListing>,
   'getListingByRegistrationNumber' : ActorMethod<[string], [] | [CarListing]>,
+  'submitInquiry' : ActorMethod<[string, string, string, string], string>,
   'submitReceipt' : ActorMethod<[bigint, string], undefined>,
   'updateListing' : ActorMethod<
     [

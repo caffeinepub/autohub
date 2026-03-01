@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 27,
   "summary": "Autohub - A used car marketplace app inspired by Spinny.com and CarDekho. Includes car resale value checker, vehicle details lookup by registration number, and second-hand car listings aggregated/updated from Google.",
   "architectural_notes": [
     "App is a used car marketplace (Autohub) inspired by Spinny.com and CarDekho",
@@ -9,13 +9,12 @@
     "Location filter uses a state → city hierarchy covering all Indian states and their cities",
     "Seller phone numbers must be hidden/masked in listing views for privacy",
     "Booking payment uses a real bank account (Axis Bank, A/C: 922010062230782, IFSC: UTIB0004620, Name: KRISHNA KANT PANDEY); customers deposit ₹5,000 and upload a receipt",
-    "Contact Us section includes helpline number +91-7836887228 and owner name Krishna Kant Pandey, India",
-    "Admin dashboard required: view all bookings (with receipt info), callback requests, and purchase inquiries"
+    "Contact Us section includes helpline number +91-7836887228 and owner name Krishna Kant Pandey, India"
   ],
   "known_issues": [
     "Cars not showing in the listings/app (reported by user in Version 7)"
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-apply-a-visual-theme-inspired-by-spinny-com-and-cardekho-clean-white-light-grey-background-bold-red-orange-accent-color-modern-sans-serif-typography-card-based-vehicle-listings-prominent-search-filter-bar-and-a-responsive-navbar-with-buy-sell-and-tools-sections-enforce-this-theme-consistently-across-all-pages",
@@ -200,6 +199,94 @@
         "REQ-28"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-delete-the-admindashboard-page-frontend-src-pages-admindashboard-tsx-and-remove-its-route-admin-from-the-router-configuration-in-frontend-src-app-tsx",
+      "title": "Delete the AdminDashboard page (`frontend/src/pages/AdminDashboard.tsx`) and remove its route (`/admin`) from the router configuration in `frontend/src/App.tsx`.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-admin-admin-dashboard-navigation-link-from-the-navbar-frontend-src-components-navbar-tsx-in-both-the-desktop-nav-and-the-mobile-menu",
+      "title": "Remove the 'Admin' / 'Admin Dashboard' navigation link from the Navbar (`frontend/src/components/Navbar.tsx`) in both the desktop nav and the mobile menu.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-usesubmitinquiry-react-query-mutation-hook-in-frontend-src-hooks-usequeries-ts-that-calls-the-backend-submitinquiry-function-with-the-inquiry-payload-listingid-customername-customerphone-message",
+      "title": "Add a `useSubmitInquiry` React Query mutation hook in `frontend/src/hooks/useQueries.ts` that calls the backend `submitInquiry` function with the inquiry payload (listingId, customerName, customerPhone, message).",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-carinquiryform-component-at-frontend-src-components-carinquiryform-tsx-the-component-renders-as-a-collapsible-card-panel-labeled-send-inquiry-on-the-listingdetail-page-the-form-contains-customer-name-text-input-phone-number-text-input-and-message-textarea-on-submit-call-the-usesubmitinquiry-mutation-with-the-current-listingid-show-a-loading-state-while-submitting-on-success-replace-the-form-with-a-confirmation-message-your-inquiry-has-been-submitted-our-team-will-get-back-to-you-shortly-style-consistently-with-the-existing-red-orange-and-dark-grey-autohub-theme-matching-the-style-of-callbackrequestform-tsx",
+      "title": "Create a new `CarInquiryForm` component at `frontend/src/components/CarInquiryForm.tsx`. The component renders as a collapsible card/panel labeled 'Send Inquiry' on the ListingDetail page. The form contains: customer name (text input), phone number (text input), and message (textarea). On submit, call the `useSubmitInquiry` mutation with the current listingId. Show a loading state while submitting. On success, replace the form with a confirmation message: 'Your inquiry has been submitted! Our team will get back to you shortly.' Style consistently with the existing red-orange and dark-grey AutoHub theme (matching the style of `CallbackRequestForm.tsx`).",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-the-carinquiryform-component-into-frontend-src-pages-listingdetail-tsx-place-it-below-the-request-callback-section-and-above-the-footer-area-pass-the-current-listing-s-id-as-the-listingid-prop",
+      "title": "Integrate the `CarInquiryForm` component into `frontend/src/pages/ListingDetail.tsx`. Place it below the 'Request Callback' section and above the footer area. Pass the current listing's id as the `listingId` prop.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-react-query-hooks-in-frontend-src-hooks-usequeries-ts-for-the-three-new-admin-backend-queries-usegetallcallbackrequests-usegetallinquiries-and-usegetallbookedlistings-each-fetching-from-the-corresponding-backend-function",
+      "title": "Add React Query hooks in `frontend/src/hooks/useQueries.ts` for the three new admin backend queries: `useGetAllCallbackRequests`, `useGetAllInquiries`, and `useGetAllBookedListings`, each fetching from the corresponding backend function.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-recreate-the-admin-dashboard-page-at-frontend-src-pages-admindashboard-tsx-and-register-it-at-route-admin-in-frontend-src-app-tsx-the-page-must-have-three-tabbed-sections-1-callback-requests-table-with-columns-customer-name-phone-number-unmasked-listing-id-preferred-time-slot-date-time-submitted-2-car-inquiries-table-with-columns-inquiry-id-listing-id-customer-name-customer-phone-unmasked-message-date-time-submitted-3-bookings-payments-table-with-columns-car-make-model-year-registration-number-seller-name-booking-status-receipt-file-name-booked-at-timestamp-each-table-must-be-sorted-by-date-newest-first-and-show-a-total-count-at-the-top-style-consistently-with-the-autohub-red-orange-and-dark-grey-theme",
+      "title": "Recreate the Admin Dashboard page at `frontend/src/pages/AdminDashboard.tsx` and register it at route `/admin` in `frontend/src/App.tsx`. The page must have three tabbed sections: (1) 'Callback Requests' — table with columns: customer name, phone number (unmasked), listing ID, preferred time slot, date/time submitted; (2) 'Car Inquiries' — table with columns: inquiry ID, listing ID, customer name, customer phone (unmasked), message, date/time submitted; (3) 'Bookings & Payments' — table with columns: car (make, model, year), registration number, seller name, booking status, receipt file name, booked-at timestamp. Each table must be sorted by date (newest first) and show a total count at the top. Style consistently with the AutoHub red-orange and dark-grey theme.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-navigation-link-in-the-site-navbar-frontend-src-components-navbar-tsx-in-both-the-desktop-nav-and-the-mobile-menu-pointing-to-admin-place-it-at-the-far-right-of-the-desktop-nav-and-at-the-bottom-of-the-mobile-menu-style-it-as-a-subtle-secondary-link-consistent-with-the-existing-navbar-theme",
+      "title": "Add an 'Admin' navigation link in the site Navbar (`frontend/src/components/Navbar.tsx`) in both the desktop nav and the mobile menu, pointing to `/admin`. Place it at the far right of the desktop nav and at the bottom of the mobile menu. Style it as a subtle secondary link consistent with the existing navbar theme.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-delete-the-admindashboard-page-file-frontend-src-pages-admindashboard-tsx-and-remove-its-route-admin-from-the-router-configuration-in-frontend-src-app-tsx",
+      "title": "Delete the AdminDashboard page file `frontend/src/pages/AdminDashboard.tsx` and remove its route (`/admin`) from the router configuration in `frontend/src/App.tsx`.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-admin-navigation-link-from-frontend-src-components-navbar-tsx-in-both-the-desktop-nav-and-the-mobile-hamburger-menu",
+      "title": "Remove the 'Admin' navigation link from `frontend/src/components/Navbar.tsx` in both the desktop nav and the mobile hamburger menu.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-admin-specific-react-query-hooks-usegetallcallbackrequests-usegetallinquiries-usegetallbookedlistings-from-frontend-src-hooks-usequeries-ts-if-they-are-no-longer-referenced-anywhere-in-the-codebase-after-the-admindashboard-removal",
+      "title": "Remove the admin-specific React Query hooks (`useGetAllCallbackRequests`, `useGetAllInquiries`, `useGetAllBookedListings`) from `frontend/src/hooks/useQueries.ts` if they are no longer referenced anywhere in the codebase after the AdminDashboard removal.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -333,15 +420,37 @@
     },
     {
       "id": "AR-27",
-      "summary": "Add an admin/owner dashboard where the admin can view all customer queries (callback requests), all booking records (including payment receipt details), and all car purchase inquiries in one place.",
+      "summary": "Add a 'Car Inquiry' feature so customers can submit an inquiry/interest form for a specific car listing (e.g., name, phone, message) and the inquiry is recorded in the backend",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-28",
-      "summary": "Add a backend query to retrieve all CallbackRequest records. Add a backend query to retrieve all CarListing records that have bookingStatus set to 'booked' (i.e., all booking records with receipt details). Ensure the existing getAllListings and getCallbackRequests functions (or equivalent) are accessible for the admin dashboard. No new data models are needed — use existing CarListing and CallbackRequest types.",
+      "summary": "Add a `CarInquiry` data type to the backend with fields: id (Text), listingId (Text), customerName (Text), customerPhone (Text), message (Text), submittedAt (Int timestamp). Add a stable map to persist inquiries. Implement two backend functions: `submitInquiry` (creates and stores a new inquiry, returns the inquiry id) and `getInquiriesByListing` (returns all inquiries for a given listingId) and `getAllInquiries` (returns all inquiries, for admin use).",
       "reqIds": [
-        "REQ-25"
+        "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Add backend query functions to expose all customer data for admin use: `getAllCallbackRequests` (returns all CallbackRequest records), `getAllInquiries` (returns all CarInquiry records), and `getAllBookedListings` (returns all CarListing records where bookingStatus is 'booked'). These functions must be callable without authentication.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Expand pre-populated car listings to 50+ realistic second-hand car listings inspired by CarDekho, CarWale, and Spinny — covering popular Indian models (Maruti, Hyundai, Tata, Kia, Honda, Toyota, Mahindra, Renault, Skoda, etc.), varied years, fuel types, transmissions, cities, mileage, and price ranges.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Expand the pre-populated sample car listings in `backend/main.mo` to at least 50 realistic second-hand car listings inspired by the types of cars listed on CarDekho, CarWale, and Spinny. Listings must cover a wide variety of: makes (Maruti Suzuki, Hyundai, Tata, Kia, Honda, Toyota, Mahindra, Renault, Skoda, Volkswagen, MG, Ford, Nissan, Jeep), models (Swift, Dzire, Baleno, Brezza, WagonR, Ertiga, Creta, i20, i10, Verna, Venue, Nexon, Punch, Harrier, Altroz, Seltos, Sonet, Carnival, City, Amaze, Fortuner, Innova Crysta, Urban Cruiser, Scorpio, XUV700, XUV300, Bolero, Kwid, Duster, Rapid, Octavia, Polo, Hector, Kicks, Compass), years (2015–2023), fuel types (Petrol, Diesel, CNG, Electric), transmissions (Manual, Automatic), colors, mileage ranges (5,000–150,000 km), asking prices (₹2.0L–₹22L), cities across India (Delhi, Mumbai, Bangalore, Chennai, Hyderabad, Pune, Kolkata, Ahmedabad, Jaipur, Lucknow, Chandigarh, Surat, Bhopal, Nagpur, Kochi). Each listing must include all required fields: id, make, model, year, mileage, fuelType, transmission, color, city, askingPrice, sellerName, sellerPhone, description, registrationNumber, postedAt, status (mix of 'available' and 'sold'), bookingStatus ('none'), imageUrls (array with at least one high-quality car photo URL from Unsplash or similar), exteriorImages360 (array of at least 8 sequential angle image URLs), and interiorImages360 (array of at least 8 sequential angle image URLs).",
+      "reqIds": [
+        "REQ-42"
       ],
       "status": "pending"
     }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useRouter } from '@tanstack/react-router';
-import { Menu, X, Car, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Car } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
@@ -46,17 +46,6 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                currentPath === '/admin'
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-              }`}
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              Admin
-            </Link>
           </nav>
 
           {/* CTA */}
@@ -97,18 +86,6 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              onClick={() => setMobileOpen(false)}
-              className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
-                currentPath === '/admin'
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              Admin Dashboard
-            </Link>
             <div className="pt-2 border-t border-border mt-1">
               <Link to="/sell" onClick={() => setMobileOpen(false)}>
                 <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">

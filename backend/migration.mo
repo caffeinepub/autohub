@@ -36,21 +36,41 @@ module {
     requestedAt : Int;
   };
 
+  type CarInquiry = {
+    id : Text;
+    listingId : Text;
+    customerName : Text;
+    customerPhone : Text;
+    message : Text;
+    submittedAt : Int;
+  };
+
   type OldActor = {
-    var nextId : Nat;
-    var nextCallbackId : Nat;
-    var listings : Map.Map<Nat, CarListing>;
-    var callbackRequests : Map.Map<Nat, CallbackRequest>;
+    listings : Map.Map<Nat, CarListing>;
+    callbackRequests : Map.Map<Nat, CallbackRequest>;
+    inquiries : Map.Map<Text, CarInquiry>;
+    nextId : Nat;
+    nextCallbackId : Nat;
+    sampleListings : [(Nat, CarListing)];
   };
 
   type NewActor = {
-    var nextId : Nat;
-    var nextCallbackId : Nat;
-    var listings : Map.Map<Nat, CarListing>;
-    var callbackRequests : Map.Map<Nat, CallbackRequest>;
+    listings : Map.Map<Nat, CarListing>;
+    callbackRequests : Map.Map<Nat, CallbackRequest>;
+    inquiries : Map.Map<Text, CarInquiry>;
+    nextId : Nat;
+    nextCallbackId : Nat;
+    allListings : [CarListing];
   };
 
   public func run(old : OldActor) : NewActor {
-    old;
+    {
+      listings = old.listings;
+      callbackRequests = old.callbackRequests;
+      inquiries = old.inquiries;
+      nextId = old.nextId;
+      nextCallbackId = old.nextCallbackId;
+      allListings = old.sampleListings.map(func((_, listing)) { listing });
+    };
   };
 };

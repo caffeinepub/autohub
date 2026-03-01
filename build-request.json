@@ -1,39 +1,45 @@
 {
   "kind": "build_request",
-  "title": "Fix: Cars not showing in listings",
+  "title": "Expand pre-populated car listings to 50+ realistic second-hand car listings",
   "projectName": "AutoHub",
-  "priority": "high",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-28",
-      "text": "Diagnose and fix the issue causing car listings not to appear on the Home page (featured listings grid) and the Listings browse page. Investigate the backend `getAllListings` query to ensure it correctly returns all stored car listings, verify the frontend `useQueries.ts` hooks are fetching and passing data correctly, and confirm the CarCard and listings grid components are rendering when data is returned. Ensure the pre-populated sample listings are present and visible after the fix.",
-      "target": "both",
+      "id": "REQ-42",
+      "text": "Expand the pre-populated sample car listings in `backend/main.mo` to at least 50 realistic second-hand car listings inspired by the types of cars listed on CarDekho, CarWale, and Spinny. Listings must cover a wide variety of: makes (Maruti Suzuki, Hyundai, Tata, Kia, Honda, Toyota, Mahindra, Renault, Skoda, Volkswagen, MG, Ford, Nissan, Jeep), models (Swift, Dzire, Baleno, Brezza, WagonR, Ertiga, Creta, i20, i10, Verna, Venue, Nexon, Punch, Harrier, Altroz, Seltos, Sonet, Carnival, City, Amaze, Fortuner, Innova Crysta, Urban Cruiser, Scorpio, XUV700, XUV300, Bolero, Kwid, Duster, Rapid, Octavia, Polo, Hector, Kicks, Compass), years (2015–2023), fuel types (Petrol, Diesel, CNG, Electric), transmissions (Manual, Automatic), colors, mileage ranges (5,000–150,000 km), asking prices (₹2.0L–₹22L), cities across India (Delhi, Mumbai, Bangalore, Chennai, Hyderabad, Pune, Kolkata, Ahmedabad, Jaipur, Lucknow, Chandigarh, Surat, Bhopal, Nagpur, Kochi). Each listing must include all required fields: id, make, model, year, mileage, fuelType, transmission, color, city, askingPrice, sellerName, sellerPhone, description, registrationNumber, postedAt, status (mix of 'available' and 'sold'), bookingStatus ('none'), imageUrls (array with at least one high-quality car photo URL from Unsplash or similar), exteriorImages360 (array of at least 8 sequential angle image URLs), and interiorImages360 (array of at least 8 sequential angle image URLs).",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-recent-user"
         ],
         "quotes": [
-          "car not showing"
+          "ok please listed first"
         ]
       },
       "acceptanceCriteria": [
-        "The Listings page (/listings) displays all available car listings as CarCard components without a blank or empty state when listings exist in the backend.",
-        "The Home page featured listings grid shows at least the most recent/available car listings.",
-        "The backend getAllListings function returns a non-empty array of CarListing records when queried.",
-        "No console errors or React Query errors appear related to fetching or rendering listings.",
-        "Individual listing cards show the car image, make, model, year, mileage, fuel type, and asking price correctly."
+        "The backend contains at least 50 pre-populated car listings visible after deployment.",
+        "Listings span at least 10 different car makes.",
+        "Listings span at least 15 different cities across India.",
+        "Listings include a mix of fuel types: Petrol, Diesel, CNG, and at least one Electric.",
+        "Listings include both Manual and Automatic transmissions.",
+        "Listings include a mix of 'available' and 'sold' statuses.",
+        "Every listing has a non-empty imageUrls array with at least one URL.",
+        "Every listing has non-empty exteriorImages360 and interiorImages360 arrays with at least 8 URLs each.",
+        "All listings are returned by the `getAllListings` backend query.",
+        "The Home page featured listings grid and the Listings browse page display listings correctly after deployment."
       ]
     }
   ],
   "constraints": [
-    "Do not remove or alter existing car listing sample data in the backend.",
-    "Do not change the CarListing data model schema.",
-    "Do not modify files under frontend/src/hooks/useActor.ts or frontend/src/hooks/useInternetIdentity.ts."
+    "Do not scrape or copy real data from CarDekho, CarWale, or Spinny — use realistic but fictional/sample data inspired by those platforms.",
+    "All new listings must conform to the existing CarListing data model in backend/main.mo — do not change the data model schema.",
+    "Do not modify any frontend immutable paths."
   ],
   "nonGoals": [
-    "Adding new car listings or sample data.",
-    "Changing the visual design or layout of listing cards.",
-    "Modifying the booking, EMI calculator, or admin dashboard features."
+    "Live API integration with CarDekho, CarWale, or Spinny.",
+    "Any changes to the frontend UI or components.",
+    "Any changes to the backend data model or query functions.",
+    "Adding new backend endpoints."
   ],
   "imageRequirements": {
     "required": [],

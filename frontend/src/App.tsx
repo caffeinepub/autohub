@@ -8,7 +8,6 @@ import SellCar from './pages/SellCar';
 import SellCarConfirmation from './pages/SellCarConfirmation';
 import ResaleValueChecker from './pages/ResaleValueChecker';
 import VehicleLookup from './pages/VehicleLookup';
-import AdminDashboard from './pages/AdminDashboard';
 import { Toaster } from '@/components/ui/sonner';
 
 function Layout() {
@@ -33,7 +32,6 @@ const sellRoute = createRoute({ getParentRoute: () => rootRoute, path: '/sell', 
 const sellConfirmationRoute = createRoute({ getParentRoute: () => rootRoute, path: '/sell/confirmation', component: SellCarConfirmation });
 const resaleValueRoute = createRoute({ getParentRoute: () => rootRoute, path: '/resale-value', component: ResaleValueChecker });
 const vehicleLookupRoute = createRoute({ getParentRoute: () => rootRoute, path: '/vehicle-lookup', component: VehicleLookup });
-const adminRoute = createRoute({ getParentRoute: () => rootRoute, path: '/admin', component: AdminDashboard });
 
 const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -43,7 +41,6 @@ const routeTree = rootRoute.addChildren([
   sellConfirmationRoute,
   resaleValueRoute,
   vehicleLookupRoute,
-  adminRoute,
 ]);
 
 const router = createRouter({ routeTree });

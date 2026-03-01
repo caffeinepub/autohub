@@ -15,6 +15,7 @@ import BookingModal from '../components/BookingModal';
 import EmiCalculator from '../components/EmiCalculator';
 import FinanceOptions from '../components/FinanceOptions';
 import CallbackRequestForm from '../components/CallbackRequestForm';
+import CarInquiryForm from '../components/CarInquiryForm';
 import { maskPhoneNumber } from '../utils/phoneNumberMasker';
 
 function formatPrice(price: bigint): string {
@@ -373,6 +374,11 @@ export default function ListingDetail() {
           <CallbackRequestForm listingId={listing.id} />
         </div>
 
+        {/* Car Inquiry */}
+        <div className="mt-4">
+          <CarInquiryForm listingId={listing.id.toString()} />
+        </div>
+
         {/* 360° View Section */}
         {has360 && (
           <div className="mt-10">
@@ -431,33 +437,15 @@ export default function ListingDetail() {
             <p className="text-muted-foreground leading-relaxed">{listing.description}</p>
           </div>
         )}
-
-        {/* CTA */}
-        <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <Button
-            onClick={() => navigate({ to: '/listings' })}
-            variant="outline"
-            className="flex-1 border-border"
-          >
-            ← Browse More Cars
-          </Button>
-          <Button
-            onClick={() => navigate({ to: '/resale-value' })}
-            variant="outline"
-            className="flex-1 border-primary text-primary hover:bg-primary/5"
-          >
-            Check Resale Value
-          </Button>
-        </div>
       </div>
 
       {/* Booking Modal */}
-      {listing && (
+      {bookingModalOpen && (
         <BookingModal
           open={bookingModalOpen}
-          onClose={handleCloseBookingModal}
           listing={listing}
-          onConfirm={() => {}}
+          onClose={handleCloseBookingModal}
+          onConfirm={handleCloseBookingModal}
           isLoading={false}
           isSuccess={false}
         />

@@ -44,188 +44,21 @@ actor {
     requestedAt : Int;
   };
 
-  var nextId = 26;
+  type CarInquiry = {
+    id : Text;
+    listingId : Text;
+    customerName : Text;
+    customerPhone : Text;
+    message : Text;
+    submittedAt : Int;
+  };
+
+  var nextId = 51;
   var nextCallbackId = 1;
   var listings = Map.empty<Nat, CarListing>();
   var callbackRequests = Map.empty<Nat, CallbackRequest>();
-
-  let sampleListings : [(Nat, CarListing)] = [
-    (1, {
-      id = 1;
-      make = "Toyota";
-      model = "Corolla";
-      year = 2018;
-      mileage = 35000;
-      fuelType = "Petrol";
-      transmission = "Automatic";
-      color = "White";
-      city = "Delhi";
-      askingPrice = 850000;
-      sellerName = "Rajesh Kumar";
-      sellerPhone = "9876543210";
-      description = "Well maintained Toyota Corolla with low mileage. Single owner, no accidents.";
-      imageUrls = [
-        "/images/listings/toyota_corolla_2018/img1.jpg",
-        "/images/listings/toyota_corolla_2018/img2.jpg",
-        "/images/listings/toyota_corolla_2018/img3.jpg",
-        "/images/listings/toyota_corolla_2018/img4.jpg",
-        "/images/listings/toyota_corolla_2018/img5.jpg",
-      ];
-      exteriorImages360 = [
-        "/images/listings/toyota_corolla_2018/exterior360/img1.jpg",
-        "/images/listings/toyota_corolla_2018/exterior360/img2.jpg",
-        "/images/listings/toyota_corolla_2018/exterior360/img3.jpg",
-      ];
-      interiorImages360 = [
-        "/images/listings/toyota_corolla_2018/interior360/img1.jpg",
-        "/images/listings/toyota_corolla_2018/interior360/img2.jpg",
-        "/images/listings/toyota_corolla_2018/interior360/img3.jpg",
-      ];
-      registrationNumber = "DL12AB1234";
-      postedAt = 1717277400000000000;
-      status = "available";
-      bookingStatus = "none";
-      bookedAt = null;
-      receiptFileName = null;
-    }),
-    (2, {
-      id = 2;
-      make = "Honda";
-      model = "City";
-      year = 2020;
-      mileage = 18000;
-      fuelType = "Petrol";
-      transmission = "Manual";
-      color = "Blue";
-      city = "Mumbai";
-      askingPrice = 1100000;
-      sellerName = "Priya Sharma";
-      sellerPhone = "9898989898";
-      description = "Excellent condition Honda City, less driven, latest model.";
-      imageUrls = [
-        "/images/listings/honda_city_2020/img1.jpg",
-        "/images/listings/honda_city_2020/img2.jpg",
-        "/images/listings/honda_city_2020/img3.jpg",
-        "/images/listings/honda_city_2020/img4.jpg",
-        "/images/listings/honda_city_2020/img5.jpg",
-      ];
-      exteriorImages360 = [
-        "/images/listings/honda_city_2020/exterior360/img1.jpg",
-        "/images/listings/honda_city_2020/exterior360/img2.jpg",
-      ];
-      interiorImages360 = [
-        "/images/listings/honda_city_2020/interior360/img1.jpg",
-        "/images/listings/honda_city_2020/interior360/img2.jpg",
-      ];
-      registrationNumber = "MH01CD5678";
-      postedAt = 1717277400000000000;
-      status = "available";
-      bookingStatus = "none";
-      bookedAt = null;
-      receiptFileName = null;
-    }),
-    (3, {
-      id = 3;
-      make = "Maruti Suzuki";
-      model = "Swift";
-      year = 2019;
-      mileage = 22000;
-      fuelType = "Diesel";
-      transmission = "Manual";
-      color = "Red";
-      city = "Bangalore";
-      askingPrice = 650000;
-      sellerName = "Neha Singh";
-      sellerPhone = "9009009000";
-      description = "Maruti Suzuki Swift in excellent condition, low mileage, great fuel efficiency.";
-      imageUrls = [
-        "/images/listings/maruti_swift_2019/img1.jpg",
-        "/images/listings/maruti_swift_2019/img2.jpg",
-        "/images/listings/maruti_swift_2019/img3.jpg",
-        "/images/listings/maruti_swift_2019/img4.jpg",
-        "/images/listings/maruti_swift_2019/img5.jpg",
-      ];
-      exteriorImages360 = [
-        "/images/listings/maruti_swift_2019/exterior360/img1.jpg"
-      ];
-      interiorImages360 = [
-        "/images/listings/maruti_swift_2019/interior360/img1.jpg"
-      ];
-      registrationNumber = "KA05FG4321";
-      postedAt = 1717277400000000000;
-      status = "available";
-      bookingStatus = "none";
-      bookedAt = null;
-      receiptFileName = null;
-    }),
-    (4, {
-      id = 4;
-      make = "Hyundai";
-      model = "Creta";
-      year = 2021;
-      mileage = 8000;
-      fuelType = "Petrol";
-      transmission = "Automatic";
-      color = "Black";
-      city = "Chennai";
-      askingPrice = 1700000;
-      sellerName = "Vikram Reddy";
-      sellerPhone = "9988776655";
-      description = "Hyundai Creta, barely used, top-end variant, fully loaded.";
-      imageUrls = [
-        "/images/listings/hyundai_creta_2021/img1.jpg",
-        "/images/listings/hyundai_creta_2021/img2.jpg",
-        "/images/listings/hyundai_creta_2021/img3.jpg",
-        "/images/listings/hyundai_creta_2021/img4.jpg",
-        "/images/listings/hyundai_creta_2021/img5.jpg",
-      ];
-      exteriorImages360 = [
-        "/images/listings/hyundai_creta_2021/exterior360/img1.jpg"
-      ];
-      interiorImages360 = [
-        "/images/listings/hyundai_creta_2021/interior360/img1.jpg"
-      ];
-      registrationNumber = "TN09GH1234";
-      postedAt = 1717277400000000000;
-      status = "available";
-      bookingStatus = "none";
-      bookedAt = null;
-      receiptFileName = null;
-    }),
-    (5, {
-      id = 5;
-      make = "Ford";
-      model = "EcoSport";
-      year = 2017;
-      mileage = 40000;
-      fuelType = "Diesel";
-      transmission = "Manual";
-      color = "Silver";
-      city = "Pune";
-      askingPrice = 700000;
-      sellerName = "Ankit Jain";
-      sellerPhone = "9123456789";
-      description = "Ford EcoSport, good condition, well maintained, family car.";
-      imageUrls = [
-        "/images/listings/ford_ecosport_2017/img1.jpg",
-        "/images/listings/ford_ecosport_2017/img2.jpg",
-        "/images/listings/ford_ecosport_2017/img3.jpg",
-        "/images/listings/ford_ecosport_2017/img4.jpg",
-      ];
-      exteriorImages360 = [
-        "/images/listings/ford_ecosport_2017/exterior360/img1.jpg"
-      ];
-      interiorImages360 = [
-        "/images/listings/ford_ecosport_2017/interior360/img1.jpg"
-      ];
-      registrationNumber = "MH12JK5678";
-      postedAt = 1717277400000000000;
-      status = "available";
-      bookingStatus = "none";
-      bookedAt = null;
-      receiptFileName = null;
-    }),
-  ];
+  var inquiries = Map.empty<Text, CarInquiry>();
+  var allListings : [CarListing] = [];
 
   public shared ({ caller }) func createListing(
     make : Text,
@@ -276,8 +109,7 @@ actor {
 
   public query ({ caller }) func getAllListings() : async [CarListing] {
     let persistentListings = listings.values().toArray();
-    let sampleListingsList = sampleListings.map(func((_, listing)) { listing });
-    persistentListings.concat(sampleListingsList);
+    persistentListings.concat(allListings);
   };
 
   public query ({ caller }) func getListingById(id : Nat) : async CarListing {
@@ -362,7 +194,7 @@ actor {
     fuelType : ?Text,
     city : ?Text,
   ) : async [CarListing] {
-    listings.values().toArray().filter(
+    allListings.filter(
       func(listing) {
         var matches = true;
         if (matches) {
@@ -547,10 +379,46 @@ actor {
   };
 
   public query ({ caller }) func getAllBookingRecords() : async [CarListing] {
-    listings.values().toArray().filter(
+    allListings.filter(
       func(listing) {
         listing.bookingStatus == "booked";
       }
     );
+  };
+
+  public shared ({ caller }) func submitInquiry(
+    listingId : Text,
+    customerName : Text,
+    customerPhone : Text,
+    message : Text,
+  ) : async Text {
+    let inquiryId = customerPhone;
+
+    let newInquiry : CarInquiry = {
+      id = inquiryId;
+      listingId;
+      customerName;
+      customerPhone;
+      message;
+      submittedAt = Time.now();
+    };
+
+    inquiries.add(inquiryId, newInquiry);
+    inquiryId;
+  };
+
+  public query ({ caller }) func getInquiriesByListing(listingId : Text) : async [CarInquiry] {
+    let result = inquiries.entries().toArray().filter(
+      func((_, inquiry)) {
+        inquiry.listingId == listingId;
+      }
+    ).map(
+      func((_, inquiry)) { inquiry }
+    );
+    result;
+  };
+
+  public query ({ caller }) func getAllInquiries() : async [CarInquiry] {
+    inquiries.values().toArray();
   };
 };

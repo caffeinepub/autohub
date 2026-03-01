@@ -1,40 +1,6 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix: Cars not showing in listings",
-  "requirements": [
-    {
-      "id": "REQ-28",
-      "summary": "Diagnose and fix the issue causing car listings not to appear on the Home page featured listings grid and the Listings browse page by investigating data fetching, query hooks, and component rendering",
-      "acceptanceCriteria": [
-        "The Listings page (/listings) displays all available car listings as CarCard components without a blank or empty state when listings exist in the backend.",
-        "The Home page featured listings grid shows at least the most recent/available car listings.",
-        "The backend getAllListings function returns a non-empty array of CarListing records when queried.",
-        "No console errors or React Query errors appear related to fetching or rendering listings.",
-        "Individual listing cards show the car image, make, model, year, mileage, fuel type, and asking price correctly."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Review and fix the useGetAllListings query hook to ensure it correctly calls the backend getAllListings function, properly handles the returned array of CarListing records, and includes appropriate error handling. Verify the query key, enabled state, and data transformation logic. Add console logging for debugging if the query is returning empty data or errors."
-        },
-        {
-          "path": "frontend/src/pages/Home.tsx",
-          "operation": "modify",
-          "description": "Debug the featured listings grid rendering logic. Verify that the useGetAllListings hook is being called correctly, the data is being received and filtered appropriately by state/city, and the CarCard components are being rendered when listings data is available. Check for conditional rendering issues that might hide the grid when data exists. Add fallback rendering and loading states to help diagnose the issue."
-        },
-        {
-          "path": "frontend/src/pages/Listings.tsx",
-          "operation": "modify",
-          "description": "Investigate the listings page rendering logic. Ensure the useGetAllListings hook or filter queries are returning data correctly, verify the CarCard mapping logic handles the data structure properly, and confirm no conditional logic is preventing the grid from rendering when listings exist. Check that filter state is not inadvertently excluding all listings. Add debug logging to trace data flow from query to render."
-        },
-        {
-          "path": "frontend/src/components/CarCard.tsx",
-          "operation": "modify",
-          "description": "Review the CarCard component to ensure it correctly renders CarListing data including image URLs, make, model, year, mileage, fuel type, and asking price. Verify the component handles the CarListing type from backend.d.ts properly (bigint conversions, optional fields). Check that the Link component wraps correctly and image loading errors don't break the card. Add prop validation or console warnings for missing required fields."
-        }
-      ]
-    }
-  ]
+  "title": "Expand pre-populated car listings to 50+ realistic second-hand car listings",
+  "requirements": []
 }

@@ -1,26 +1,4 @@
 {
   "kind": "feature_evidence_report",
-  "features": [
-    {
-      "featureId": "feature-diagnose-and-fix-the-issue-causing-car-listings-not-to-appear-on-the-home-page-featured-listings-grid-and-the-listings-browse-page-investigate-the-backend-getalllistings-query-to-ensure-it-correctly-returns-all-stored-car-listings-verify-the-frontend-usequeries-ts-hooks-are-fetching-and-passing-data-correctly-and-confirm-the-carcard-and-listings-grid-components-are-rendering-when-data-is-returned-ensure-the-pre-populated-sample-listings-are-present-and-visible-after-the-fix",
-      "featureTitle": "Diagnose and fix the issue causing car listings not to appear on the Home page (featured listings grid) and the Listings browse page. Investigate the backend `getAllListings` query to ensure it correctly returns all stored car listings, verify the frontend `useQueries.ts` hooks are fetching and passing data correctly, and confirm the CarCard and listings grid components are rendering when data is returned. Ensure the pre-populated sample listings are present and visible after the fix.",
-      "files": [
-        "frontend/src/components/CarCard.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/Home.tsx",
-        "frontend/src/pages/Listings.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-28"
-      ],
-      "confidence": "high"
-    }
-  ]
+  "features": []
 }

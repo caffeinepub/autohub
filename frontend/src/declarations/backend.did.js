@@ -40,6 +40,14 @@ export const CallbackRequest = IDL.Record({
   'phone' : IDL.Text,
   'requestedAt' : IDL.Int,
 });
+export const CarInquiry = IDL.Record({
+  'id' : IDL.Text,
+  'customerName' : IDL.Text,
+  'customerPhone' : IDL.Text,
+  'listingId' : IDL.Text,
+  'submittedAt' : IDL.Int,
+  'message' : IDL.Text,
+});
 
 export const idlService = IDL.Service({
   'addCallbackRequest' : IDL.Func(
@@ -89,6 +97,7 @@ export const idlService = IDL.Service({
       [IDL.Vec(CallbackRequest)],
       ['query'],
     ),
+  'getAllInquiries' : IDL.Func([], [IDL.Vec(CarInquiry)], ['query']),
   'getAllListings' : IDL.Func([], [IDL.Vec(CarListing)], ['query']),
   'getBankDetails' : IDL.Func([], [IDL.Text], ['query']),
   'getCallbackRequestsByListingId' : IDL.Func(
@@ -96,11 +105,21 @@ export const idlService = IDL.Service({
       [IDL.Vec(CallbackRequest)],
       ['query'],
     ),
+  'getInquiriesByListing' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(CarInquiry)],
+      ['query'],
+    ),
   'getListingById' : IDL.Func([IDL.Nat], [CarListing], ['query']),
   'getListingByRegistrationNumber' : IDL.Func(
       [IDL.Text],
       [IDL.Opt(CarListing)],
       ['query'],
+    ),
+  'submitInquiry' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Text],
+      [],
     ),
   'submitReceipt' : IDL.Func([IDL.Nat, IDL.Text], [], []),
   'updateListing' : IDL.Func(
@@ -169,6 +188,14 @@ export const idlFactory = ({ IDL }) => {
     'phone' : IDL.Text,
     'requestedAt' : IDL.Int,
   });
+  const CarInquiry = IDL.Record({
+    'id' : IDL.Text,
+    'customerName' : IDL.Text,
+    'customerPhone' : IDL.Text,
+    'listingId' : IDL.Text,
+    'submittedAt' : IDL.Int,
+    'message' : IDL.Text,
+  });
   
   return IDL.Service({
     'addCallbackRequest' : IDL.Func(
@@ -218,6 +245,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(CallbackRequest)],
         ['query'],
       ),
+    'getAllInquiries' : IDL.Func([], [IDL.Vec(CarInquiry)], ['query']),
     'getAllListings' : IDL.Func([], [IDL.Vec(CarListing)], ['query']),
     'getBankDetails' : IDL.Func([], [IDL.Text], ['query']),
     'getCallbackRequestsByListingId' : IDL.Func(
@@ -225,11 +253,21 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(CallbackRequest)],
         ['query'],
       ),
+    'getInquiriesByListing' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(CarInquiry)],
+        ['query'],
+      ),
     'getListingById' : IDL.Func([IDL.Nat], [CarListing], ['query']),
     'getListingByRegistrationNumber' : IDL.Func(
         [IDL.Text],
         [IDL.Opt(CarListing)],
         ['query'],
+      ),
+    'submitInquiry' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Text],
+        [],
       ),
     'submitReceipt' : IDL.Func([IDL.Nat, IDL.Text], [], []),
     'updateListing' : IDL.Func(

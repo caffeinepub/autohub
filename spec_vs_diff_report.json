@@ -1,45 +1,79 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-27T07:05:33.797Z",
-  "summary": "The diff addresses REQ-28 by fixing car listings not appearing on the Home page and Listings browse page. Changes include: backend migration module added, sample listings embedded directly in main.mo, frontend useQueries.ts hooks updated to fetch and return listings correctly (including fallback logic for getListingById), CarCard.tsx updated to render listing details with placeholder handling, Home.tsx and Listings.tsx updated to use useGetAllListings and render CarCard components, and ListingDetail.tsx fixed for correct id passing. The fix covers backend getAllListings returning sample data, frontend fetching and rendering, and individual card display of car details.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-03-01T17:07:38.911Z",
+  "summary": "The diff modifies backend/main.mo and adds a migration module. The main.mo sets nextId=51 suggesting 50 pre-populated listings were added, and getAllListings() returns both persistent listings and allListings (the pre-populated array). However, the diff is truncated and the actual 50+ listing data entries are not visible in the diff content. We can infer listings were added but cannot verify all acceptance criteria details due to truncation.",
+  "missing_requirements": [
     {
-      "description": "Migration module (backend/migration.mo) added as a separate file with a run() identity function for stable memory migration",
-      "reason": "REQ-28 only asked to fix listings not showing; adding a migration module was not requested and goes beyond diagnosing/fixing the listing display issue",
+      "id": "REQ-42",
+      "requirement": "Every listing has non-empty exteriorImages360 and interiorImages360 arrays with at least 8 URLs each.",
+      "reason": "The diff is truncated and the actual listing data is not visible, so we cannot confirm that all 50+ listings include exteriorImages360 and interiorImages360 arrays with at least 8 URLs each.",
       "evidence": [
-        "backend/migration.mo",
         "backend/main.mo"
       ]
     },
     {
-      "description": "useCreateCallbackRequest exported as an alias for useAddCallbackRequest for backward compatibility",
-      "reason": "This alias export was not mentioned in REQ-28 or any other requirement in the build request",
+      "id": "REQ-42",
+      "requirement": "Every listing has a non-empty imageUrls array with at least one URL.",
+      "reason": "The actual listing data is truncated in the diff, so we cannot confirm that all 50+ listings have non-empty imageUrls arrays with valid URLs.",
       "evidence": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend-file-summaries.txt"
+        "backend/main.mo"
       ]
     },
     {
-      "description": "BigInt-in-query-key lint error fix in useFilterListings by serializing bigint filter values to strings in the query key",
-      "reason": "REQ-28 focused on getAllListings and rendering; fixing a lint error in useFilterListings was not part of the requirements",
+      "id": "REQ-42",
+      "requirement": "Listings span at least 15 different cities across India.",
+      "reason": "Cannot verify city coverage due to truncated listing data in the diff.",
       "evidence": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend-file-summaries.txt"
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-42",
+      "requirement": "Listings include a mix of fuel types: Petrol, Diesel, CNG, and at least one Electric.",
+      "reason": "Cannot verify fuel type coverage including CNG and Electric due to truncated listing data.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-42",
+      "requirement": "Listings span at least 10 different car makes.",
+      "reason": "Cannot verify make coverage due to truncated listing data in the diff.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-42",
+      "requirement": "Listings include a mix of available and sold statuses.",
+      "reason": "Cannot verify status mix due to truncated listing data.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-42",
+      "requirement": "All listings are returned by the getAllListings backend query and findable by getListingByRegistrationNumber.",
+      "reason": "The getListingById and getListingByRegistrationNumber functions only search the persistent listings map, not the allListings array. Pre-populated listings stored in allListings would not be found by those query functions.",
+      "evidence": [
+        "backend/main.mo"
       ]
     }
   ],
-  "confidence": 0.82,
+  "hallucinated_features": [
+    {
+      "description": "A migration module (backend/migration.mo) was added to handle schema migration from an old actor state with a sampleListings field to a new actor state with an allListings field.",
+      "reason": "The build request only asked to expand pre-populated car listings in backend/main.mo. No migration module was requested.",
+      "evidence": [
+        "backend/migration.mo"
+      ]
+    }
+  ],
+  "confidence": 0.45,
   "changed_files": [
     "backend/main.mo",
     "backend/migration.mo",
-    "frontend-file-summaries.txt",
-    "frontend/src/components/CarCard.tsx",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/Home.tsx",
-    "frontend/src/pages/ListingDetail.tsx",
-    "frontend/src/pages/Listings.tsx",
     "project_state.json"
   ]
 }

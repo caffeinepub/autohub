@@ -113,6 +113,14 @@ export interface CarListing {
     exteriorImages360: Array<string>;
     receiptFileName?: string;
 }
+export interface CarInquiry {
+    id: string;
+    customerName: string;
+    customerPhone: string;
+    listingId: string;
+    submittedAt: bigint;
+    message: string;
+}
 export interface CallbackRequest {
     id: bigint;
     customerName: string;
@@ -129,11 +137,14 @@ export interface backendInterface {
     filterCarListings(make: string | null, minPrice: bigint | null, maxPrice: bigint | null, year: bigint | null, fuelType: string | null, city: string | null): Promise<Array<CarListing>>;
     getAllBookingRecords(): Promise<Array<CarListing>>;
     getAllCallbackRequests(): Promise<Array<CallbackRequest>>;
+    getAllInquiries(): Promise<Array<CarInquiry>>;
     getAllListings(): Promise<Array<CarListing>>;
     getBankDetails(): Promise<string>;
     getCallbackRequestsByListingId(listingId: bigint): Promise<Array<CallbackRequest>>;
+    getInquiriesByListing(listingId: string): Promise<Array<CarInquiry>>;
     getListingById(id: bigint): Promise<CarListing>;
     getListingByRegistrationNumber(registrationNumber: string): Promise<CarListing | null>;
+    submitInquiry(listingId: string, customerName: string, customerPhone: string, message: string): Promise<string>;
     submitReceipt(listingId: bigint, receiptFileName: string): Promise<void>;
     updateListing(id: bigint, make: string, model: string, year: bigint, mileage: bigint, fuelType: string, transmission: string, color: string, city: string, askingPrice: bigint, sellerName: string, sellerPhone: string, description: string, imageUrls: Array<string>, exteriorImages360: Array<string>, interiorImages360: Array<string>, registrationNumber: string, status: string): Promise<void>;
     updateListingImages(id: bigint, imageUrls: Array<string>, exteriorImages360: Array<string>, interiorImages360: Array<string>): Promise<void>;
@@ -239,6 +250,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getAllInquiries(): Promise<Array<CarInquiry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllInquiries();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllInquiries();
+            return result;
+        }
+    }
     async getAllListings(): Promise<Array<CarListing>> {
         if (this.processError) {
             try {
@@ -281,6 +306,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getInquiriesByListing(arg0: string): Promise<Array<CarInquiry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getInquiriesByListing(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getInquiriesByListing(arg0);
+            return result;
+        }
+    }
     async getListingById(arg0: bigint): Promise<CarListing> {
         if (this.processError) {
             try {
@@ -307,6 +346,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getListingByRegistrationNumber(arg0);
             return from_candid_opt_n8(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async submitInquiry(arg0: string, arg1: string, arg2: string, arg3: string): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3);
+            return result;
         }
     }
     async submitReceipt(arg0: bigint, arg1: string): Promise<void> {

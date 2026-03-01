@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useActor } from "./useActor";
-import { CarListing } from "@/backend";
+import { CarListing, CarInquiry, CallbackRequest } from "@/backend";
 
 // ── Listings ──────────────────────────────────────────────────────────────────
 
@@ -276,46 +276,16 @@ export function useAddCallbackRequest() {
 // Keep the old name as an alias so existing callers (CallbackRequestForm) still work
 export const useCreateCallbackRequest = useAddCallbackRequest;
 
-export function useGetAllCallbackRequests() {
-  const { actor, isFetching } = useActor();
-
-  return useQuery({
-    queryKey: ["callbackRequests"],
-    queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllCallbackRequests();
-    },
-    enabled: !!actor && !isFetching,
-    refetchOnWindowFocus: true,
-  });
-}
-
 export function useGetCallbackRequestsByListingId(listingId: bigint | undefined) {
   const { actor, isFetching } = useActor();
 
-  return useQuery({
+  return useQuery<CallbackRequest[]>({
     queryKey: ["callbackRequests", listingId?.toString()],
     queryFn: async () => {
       if (!actor || listingId === undefined) return [];
       return actor.getCallbackRequestsByListingId(listingId);
     },
     enabled: !!actor && !isFetching && listingId !== undefined,
-  });
-}
-
-// ── Booking Records ───────────────────────────────────────────────────────────
-
-export function useGetAllBookingRecords() {
-  const { actor, isFetching } = useActor();
-
-  return useQuery({
-    queryKey: ["bookingRecords"],
-    queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllBookingRecords();
-    },
-    enabled: !!actor && !isFetching,
-    refetchOnWindowFocus: true,
   });
 }
 
@@ -346,5 +316,45 @@ export function useGetListingByRegistrationNumber(registrationNumber: string | u
       return actor.getListingByRegistrationNumber(registrationNumber);
     },
     enabled: !!actor && !isFetching && !!registrationNumber,
+  });
+}
+
+// ── Car Inquiries ─────────────────────────────────────────────────────────────
+
+export function useSubmitInquiry() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: {
+      listingId: string;
+      customerName: string;
+      customerPhone: string;
+      message: string;
+    }) => {
+      if (!actor) throw new Error("Actor not initialized");
+      return actor.submitInquiry(
+        params.listingId,
+        params.customerName,
+        params.customerPhone,
+        params.message
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["inquiries"] });
+    },
+  });
+}
+
+export function useGetInquiriesByListing(listingId: string | undefined) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<CarInquiry[]>({
+    queryKey: ["inquiries", listingId],
+    queryFn: async () => {
+      if (!actor || !listingId) return [];
+      return actor.getInquiriesByListing(listingId);
+    },
+    enabled: !!actor && !isFetching && !!listingId,
   });
 }
